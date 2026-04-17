@@ -30,7 +30,11 @@ export default function Register() {
       setToast({ message: 'Registration successful! Please log in.', type: 'success' });
       setTimeout(() => navigate('/login'), 1500);
     } catch (err) {
-      setToast({ message: err.response?.data?.message || 'Registration failed', type: 'error' });
+      if (err.response?.data?.email) {
+        setToast({ message: err.response.data.email[0], type: 'error' });
+      } else {
+        setToast({ message: err.response?.data?.message || 'Registration failed', type: 'error' });
+      }
     } finally {
       setLoading(false);
     }
@@ -146,7 +150,11 @@ export default function Register() {
                           <User size={18} />
                         </div>
                         <input className="input-field pl-11" placeholder="John Doe"
-                          value={form.name} onChange={(e) => update('name', e.target.value)} required />
+                          value={form.name} 
+                          pattern="^[a-zA-Z\s]+$"
+                          title="Name should only contain letters and spaces"
+                          onChange={(e) => update('name', e.target.value)} 
+                          required />
                       </div>
                     </div>
 
@@ -169,8 +177,14 @@ export default function Register() {
                         <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary transition-colors">
                           <Phone size={18} />
                         </div>
-                        <input className="input-field pl-11" placeholder="+91 9876543210"
-                          value={form.phone} onChange={(e) => update('phone', e.target.value)} required />
+                        <input className="input-field pl-11" placeholder="10-digit number"
+                          type="tel"
+                          pattern="[0-9]{10,15}"
+                          maxLength={15}
+                          title="Please enter a valid phone number (10-15 digits)"
+                          value={form.phone} 
+                          onChange={(e) => update('phone', e.target.value.replace(/\D/g, ''))} 
+                          required />
                       </div>
                     </div>
 

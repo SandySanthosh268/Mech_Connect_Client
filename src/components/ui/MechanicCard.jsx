@@ -4,7 +4,7 @@ import { Button } from './Button';
 import { Card } from './Card';
 
 export function MechanicCard({ mechanic, onBook, index = 0 }) {
-  const avgRating = mechanic.average_rating || 0;
+  const avgRating = mechanic.averageRating || mechanic.average_rating || 0;
 
   return (
     <motion.div 

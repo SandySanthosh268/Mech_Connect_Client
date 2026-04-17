@@ -164,7 +164,7 @@ export default function SearchMechanics() {
                         </h3>
                         <div className="flex items-center gap-1.5 px-3 py-1 bg-amber-50 rounded-full border border-amber-100">
                           <Star size={12} className="text-amber-500" fill="currentColor" />
-                          <span className="text-sm font-black text-amber-700">{selectedMechanic?.average_rating || 0}</span>
+                          <span className="text-sm font-black text-amber-700">{selectedMechanic?.averageRating || selectedMechanic?.average_rating || 0}</span>
                         </div>
                       </div>
                       <div className="space-y-3 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
